@@ -77,6 +77,7 @@ def playerStandings():
 
     c.execute("""select player_id, name, wins, (wins+losses)
                 as matches from players order by wins desc;""")
+    
     standings = c.fetchall()
 
     db.close()
