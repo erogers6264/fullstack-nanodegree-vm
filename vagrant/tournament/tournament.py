@@ -112,26 +112,15 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+    standings = playerStandings()
 
-    standings = playerStandings() 
-
+    # Organize the player ids and names into a list of tuples
     idnamepairs = [(row[0], row[1]) for row in standings]
+    
     pairs = []
-
-    #Perhaps this could be obtained with an SQL subquery?
     i = 0
     while i < len(idnamepairs):
         pair = idnamepairs[i] + idnamepairs[i+1]
         pairs.append(pair)
         i += 2
-
-
-    # db = connect()
-    # c = db.cursor()
-
-    # c.execute("SELECT player_id, name FROM players WHERE ")
-
-    # db.commit()
-    # db.close()
-
     return pairs

@@ -1,11 +1,3 @@
--- Table definitions for the tournament project.
---
--- Put your SQL 'create table' statements in this file; also 'create view'
--- statements if you choose to use it.
---
--- You can write comments in this file by starting them with two dashes, like
--- these lines here.
-
 -- Create the database
 DROP DATABASE IF EXISTS tournament;
 CREATE DATABASE tournament;
@@ -32,9 +24,7 @@ CREATE TABLE matches(
 );
 
 -- Create a view of players ordered by wins
+DROP VIEW IF EXISTS standings;
 CREATE VIEW standings AS
 	SELECT player_id, name, wins, (wins+losses) AS
 	matches FROM players ORDER BY wins DESC;
-
-CREATE VIEW unique_matches AS
-	SELECT player_id
