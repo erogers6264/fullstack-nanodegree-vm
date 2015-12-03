@@ -15,9 +15,7 @@ def deleteMatches():
     """Remove all the match records from the database."""
     db = connect()
     c = db.cursor()
-
     c.execute("DELETE FROM matches *")
-
     db.commit()
     db.close()
 
@@ -26,9 +24,7 @@ def deletePlayers():
     """Remove all the player records from the database."""
     db = connect()
     c = db.cursor()
-
     c.execute("DELETE FROM players *")
-
     db.commit()
     db.close()
 
@@ -37,10 +33,8 @@ def countPlayers():
     """Returns the number of players currently registered."""
     db = connect()
     c = db.cursor()
-
     c.execute("SELECT COUNT(*) FROM players;")
     count = c.fetchone()
-
     db.close()
     return int(count[0])
 
@@ -56,9 +50,7 @@ def registerPlayer(name):
     """
     db = connect()
     c = db.cursor()
-
     c.execute("INSERT INTO players (name) VALUES (%s);", (name,))
-
     db.commit()
     db.close()
 
@@ -78,9 +70,10 @@ def playerStandings():
     """
     db = connect()
     c = db.cursor()
-    c.execute("""SELECT player_id, name, wins, (wins+losses)
-                AS matches FROM players ORDER BY wins DESC;""")
+
+    c.execute("""SELECT * FROM standings""")
     standings = c.fetchall()
+
     db.close()
     return standings
 
@@ -94,7 +87,6 @@ def reportMatch(winner, loser):
     """
     db = connect()
     c = db.cursor()
-
     c.execute("INSERT INTO matches (winner, loser) VALUES (%s, %s)",
               (winner, loser,))
     c.execute("""UPDATE players
@@ -122,15 +114,15 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-
     standings = playerStandings()
-    idnamepairs = [(row[0], row[1]) for row in standings]
-    pairs = []
 
-    # Perhaps this could be obtained with an SQL subquery?
+    # Organize the player ids and names into a list of tuples
+    idnamepairs = [(row[0], row[1]) for row in standings]
+    
+    pairs = []
     i = 0
     while i < len(idnamepairs):
-        pairs.append(idnamepairs[i] + idnamepairs[i+1])
+        pair = idnamepairs[i] + idnamepairs[i+1]
+        pairs.append(pair)
         i += 2
-
     return pairs
