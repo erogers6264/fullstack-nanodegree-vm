@@ -15,7 +15,7 @@ CREATE TABLE tournaments(
 -- Create the players table
 CREATE TABLE players(
 	player_id SERIAL PRIMARY KEY,
-	name VARCHAR(50) NOT NULL,
+	name TEXT NOT NULL,
 	wins INTEGER DEFAULT 0,
 	losses INTEGER DEFAULT 0,
 	tournament INTEGER REFERENCES tournaments (tournament_id)
