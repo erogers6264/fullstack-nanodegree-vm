@@ -1,5 +1,5 @@
 -- Create the database
-DROP DATABASE CASCADE IF EXISTS tournament;
+DROP DATABASE IF EXISTS tournament;
 CREATE DATABASE tournament;
 
 -- Connect to the database
@@ -9,7 +9,8 @@ CREATE DATABASE tournament;
 CREATE TABLE tournaments(
 	tournament_id SERIAL PRIMARY KEY,
 	players INTEGER REFERENCES players (player_id),
-	matches INTEGER REFERENCES matches (match_id)
+	matches INTEGER REFERENCES matches (match_id),
+	winner INTEGER REFERENCES players (player_id) DEFAULT NULL
 );
 
 -- Create the players table
