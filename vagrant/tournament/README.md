@@ -13,12 +13,14 @@ To get started, check out below!
 ## Documentation
 * Clone the fullstack-nanodegree-vm repository
 * Run vagrant up in the tournament directory and connect via ssh:
-  ```
-  vagrant up
-  vagrant ssh
-  ```
+```
+vagrant up
+vagrant ssh
+```
 * Run `psql` and import the `tournament.sql` file
-  `\i tournament.sql`
+```
+\i tournament.sql`
+```
 * Run the tests to see them pass!
 `python tournament_test.py`
 
