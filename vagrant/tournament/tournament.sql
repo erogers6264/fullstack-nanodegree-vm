@@ -8,9 +8,7 @@ CREATE DATABASE tournament;
 -- Create the tournaments table
 CREATE TABLE tournaments(
 	tournament_id SERIAL PRIMARY KEY,
-	players INTEGER REFERENCES players (player_id),
-	matches INTEGER REFERENCES matches (match_id),
-	winner INTEGER REFERENCES players (player_id) DEFAULT NULL
+	name TEXT NOT NULL
 );
 
 -- Create the players table
