@@ -20,9 +20,12 @@ vagrant ssh
 * Run `psql` and import the `tournament.sql` file
 ```
 \i tournament.sql`
+\q
 ```
 * Run the tests to see them pass!
-`python tournament_test.py`
+```
+python tournament_test.py
+```
 
 ## Bugs and feature requests
 Have a bug or a feature request? Please e-mail me at erogers6264@gmail.com
