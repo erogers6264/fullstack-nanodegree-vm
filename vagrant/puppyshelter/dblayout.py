@@ -19,8 +19,10 @@ Base = declarative_base()
 
 # Time to write the classes which will be mapped
 class Shelter(Base):
-	"""docstring for Shelter"""
+	"""Dogooders in this world"""
+	
 	__tablename__ = 'shelter'
+
 	name = Column(String(80), nullable = False)
 	address = Column(String)
 	city = Column(String)
@@ -46,7 +48,7 @@ class Shelter(Base):
 
 
 class Puppy(Base):
-	"""docstring for Puppy"""
+	"""What a cute class of objects!"""
 
 	__tablename__ = 'puppy'
 
@@ -54,7 +56,8 @@ class Puppy(Base):
 	dateOfBirth = Column() # Maybe look up a date data type
 	gender = Column()
 	weight = Column()
-	shelter_id = Column()
+	shelter_id = Column(Integer, ForeignKey('Shelter'))
+	shelter = relationship(Shelter)
 
 	def __init__(self, arg):
 		super(Puppy, self).__init__()
