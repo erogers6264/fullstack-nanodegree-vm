@@ -31,17 +31,17 @@ CREATE TABLE pieces(
 DROP TABLE IF EXISTS dancers_pieces;
 CREATE TABLE dancers_pieces(
 	dancer_id INTEGER REFERENCES dancers (id),
-	piece_id INTEGER REFERENCES pieces
+	piece_id INTEGER REFERENCES pieces (id)
 );
 
 DROP TABLE IF EXISTS pieces_shows;
 CREATE TABLE pieces_shows(
 	piece_id INTEGER REFERENCES pieces (id),
-	show_id INTEGER REFERENCES shows
+	show_id INTEGER REFERENCES shows (id)
 );
 
 DROP TABLE IF EXISTS dancers_shows;
 CREATE TABLE dancers_shows(
 	dancer_id INTEGER REFERENCES dancers (id),
-	show_id INTEGER REFERENCES shows
+	show_id INTEGER REFERENCES shows (id)
 );
