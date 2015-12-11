@@ -20,7 +20,7 @@ Base = declarative_base()
 # Time to write the classes which will be mapped
 class Shelter(Base):
 	"""Dogooders in this world"""
-	
+
 	__tablename__ = 'shelter'
 
 	name = Column(String(80), nullable = False)
@@ -42,9 +42,12 @@ class Shelter(Base):
 		self.id = id
 
 	def __repr__(self):
-		return "<User('%s','%s', '%s')>" % (self.name, self.address, self.city,
-											self.state, self.zipCode,
-											self.website, self.id)
+		return """<Shelter('%s','%s', '%s', '%s',
+			 			   '%s', '%s', '%s')>""" % 
+						  (self.name,
+						   self.address, self.city,
+						   self.state, self.zipCode,
+						   self.website, self.id)
 
 
 class Puppy(Base):
@@ -59,12 +62,22 @@ class Puppy(Base):
 	shelter_id = Column(Integer, ForeignKey('Shelter'))
 	shelter = relationship(Shelter)
 
-	def __init__(self, arg):
+	def __init__(self, name, dateOfBirth, gender, 
+				 weight, shelter_id, shelter):
 		super(Puppy, self).__init__()
 		self.arg = arg
+		self.name = name
+		self.dateOfBirth = dateOfBirth
+		self.gender = gender
+		self.weight = weight
+		self.shelter_id = shelter_id
+		self.shelter = shelter
 
 	def __repr__(self):
-		pass
+		return """<Puppy('%s','%s', '%s', '%s',
+			 			 '%s', '%s', '%s')""" %
+						(self.arg, self.name, self.dateOfBirth, self.gender,
+						 self.weight, self.shelter_id, self.shelter)
 
 
 # Engine
