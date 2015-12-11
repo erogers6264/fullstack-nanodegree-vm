@@ -5,26 +5,30 @@ CREATE DATABASE tournament;
 -- Connect to the database
 \c tournament;
 
+-- Create the tournaments table
+CREATE TABLE tournaments(
+	tournament_id SERIAL PRIMARY KEY,
+	name TEXT NOT NULL
+);
+
 -- Create the players table
-DROP TABLE IF EXISTS players;
 CREATE TABLE players(
 	player_id SERIAL PRIMARY KEY,
-	name VARCHAR(50) NOT NULL,
+	name TEXT NOT NULL,
 	wins INTEGER DEFAULT 0,
-	losses INTEGER DEFAULT 0
+	losses INTEGER DEFAULT 0,
+	tournament INTEGER REFERENCES tournaments (tournament_id)
 );
 
 -- Create the matches table
-DROP TABLE IF EXISTS matches;
 CREATE TABLE matches(
 	match_id SERIAL PRIMARY KEY,
 	winner INTEGER REFERENCES players (player_id),
 	loser INTEGER REFERENCES players (player_id),
-	UNIQUE (winner, loser)
+	tournament INTEGER REFERENCES tournaments (tournament_id)
 );
 
 -- Create a view of players ordered by wins
-DROP VIEW IF EXISTS standings;
 CREATE VIEW standings AS
 	SELECT player_id, name, wins, (wins+losses) AS
 	matches FROM players ORDER BY wins DESC;
