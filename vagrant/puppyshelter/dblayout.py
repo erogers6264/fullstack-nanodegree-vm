@@ -20,8 +20,8 @@ class Shelter(Base):
 	name = Column(String(80), nullable = False)
 	address = Column(String(250))
 	city = Column(String(80))
-	state = Column(String)
-	zipCode = Column(Integer)
+	state = Column(String(20))
+	zipCode = Column(String(10))
 	website = Column(String) 
 
 
