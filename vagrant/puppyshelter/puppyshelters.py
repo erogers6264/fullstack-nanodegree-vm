@@ -26,5 +26,5 @@ session = DBSession()
 # all the shelters in the database.
 
 def registerPuppy():
-
+	pass
 
