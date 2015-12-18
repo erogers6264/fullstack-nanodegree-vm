@@ -26,5 +26,7 @@ session = DBSession()
 # all the shelters in the database.
 
 def registerPuppy():
-	pass
+	pup = Puppy(name = "", gender = "", dateOfBirth = "", picture = "", weight = 0)
 
+def balancePuppies():
+	pass

@@ -53,7 +53,7 @@ class Profile(Base):
 	"""docstring for Profile"""
 	__tablename__ = 'profile'
 	id = Column(Integer, primary_key = True)
-	photo = Column()
+	photo = Column(String)
 	description = Column(String)
 	specialNeeds = Column(String)
 	puppy_id = Column(Integer, ForeignKey('puppy.id'))
