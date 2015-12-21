@@ -111,6 +111,20 @@ def reportMatch(winner, loser):
     db.commit()
     db.close()
 
+def hasBye(player):
+    """Determines if the player has a bye. Returns a boolean
+    indicating the result. 
+    Args:
+        player: the id number of the player in question
+    """
+    db = connect()
+    c = db.cursor()
+    c.execute("SELECT has_bye FROM players WHERE player_id=%s", (player,))
+    bye = c.fetchone()
+    db.close()
+    print bye
+    return bye
+
 
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
@@ -130,11 +144,12 @@ def swissPairings():
     standings = playerStandings()
 
     # Organize the player ids and names into a list of tuples
+    # This is uses a cool technique call a list comprehension
     idnamepairs = [(row[0], row[1]) for row in standings]
     
-    pairs = []
-    i = 0
-    while i < len(idnamepairs):
+    pairs = [] # Create a new list to hold the final pairs
+    i = 0 # Initiate a counter
+    while i < len(idnamepairs): # Loop should iterate over 
         pair = idnamepairs[i] + idnamepairs[i+1]
         pairs.append(pair)
         i += 2
