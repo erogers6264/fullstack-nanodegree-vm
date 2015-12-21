@@ -17,7 +17,8 @@ CREATE TABLE players(
 	name TEXT NOT NULL,
 	wins INTEGER DEFAULT 0,
 	losses INTEGER DEFAULT 0,
-	tournament INTEGER REFERENCES tournaments (tournament_id)
+	tournament INTEGER REFERENCES tournaments (tournament_id),
+	has_bye	BOOLEAN DEFAULT FALSE
 );
 
 -- Create the matches table
