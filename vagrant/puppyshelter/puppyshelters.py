@@ -3,7 +3,7 @@
 #
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
- 
+
 from dblayout import Base, Shelter, Puppy, Adopter, Profile 
 
 engine = create_engine('sqlite:///puppyshelter.db')
@@ -25,8 +25,14 @@ session = DBSession()
 # Write a load-balancing algorithm that can transfer puppies evenly throughout
 # all the shelters in the database.
 
-def registerPuppy():
-	pup = Puppy(name = "", gender = "", dateOfBirth = "", picture = "", weight = 0)
+def registerPuppy(name, gender, dateOfBirth, picture,
+				  shelter_id, shelter, weight, profile, adopters):
+	pup = Puppy(self.name = name,
+				self.gender = gender,
+				self.dateOfBirth = dateOfBirth, 
+				self.picture = picture, 
+				self.weight = weight)
+
 
 def balancePuppies():
 	pass
