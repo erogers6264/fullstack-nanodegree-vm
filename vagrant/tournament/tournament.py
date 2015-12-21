@@ -155,6 +155,14 @@ def swissPairings():
             pairs.append(pair)
             i += 2
     else:
-        print("As of yet invalid number of players ;)")
+        for player in idnamepairs:
+            if hasBye(player[0]) == False:
+                db = connect()
+                c = db.cursor()
+                c.execute("""UPDATE players
+                             SET has_bye=TRUE
+                             WHERE player_id=%s""", (player[0],))
+            else:
+
 
     return pairs
