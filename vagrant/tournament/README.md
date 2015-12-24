@@ -17,7 +17,7 @@ To get started, check out below!
 vagrant up
 vagrant ssh
 ```
-* Run `psql` and import the `tournament.sql` file
+	* Run `psql` and import the `tournament.sql` file
 ```
 \i tournament.sql`
 \q
@@ -26,6 +26,12 @@ vagrant ssh
 ```
 python tournament_test.py
 ```
+## Use
+* You can use the program by opening a python shell and typing
+```
+from tournament import *
+```
+* All of the functions contained within the tournament module will be imported. See documentation within the tournament.py file. 
 
 ## Bugs and feature requests
 Have a bug or a feature request? Please e-mail me at erogers6264@gmail.com
