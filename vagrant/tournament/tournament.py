@@ -151,7 +151,7 @@ def swissPairings():
     if even:
         i = 0 # Initiate a counter
         while i < len(idnamepairs): # Loop should iterate over 
-            pair = idnamepairs[i] + idnamepairs[i+1]
+            pair = idnamepairs[i] + idnamepairs[i+1] # make the tuple of tuples containing id and name
             pairs.append(pair)
             i += 2
     else:
@@ -160,9 +160,13 @@ def swissPairings():
                 db = connect()
                 c = db.cursor()
                 c.execute("""UPDATE players
-                             SET has_bye=TRUE
+                             SET has_bye=TRUE, wins=wins+1
                              WHERE player_id=%s""", (player[0],))
+                db.commit()
+                db.close()
+                break    
             else:
+                pass
 
 
     return pairs
