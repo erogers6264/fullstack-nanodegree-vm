@@ -153,16 +153,19 @@ def swissPairings():
             pairs.append(pair)
             i += 2
     else:
+        # Iterate and assign a bye to the first player without one
         for player in idnamepairs:
             if hasBye(player[0]) == False:
                 assignBye(player[0])
-                # Grab the byed player
+                # Grab the byed player then break to proceed to pairing
                 byed = idnamepairs.pop(idnamepairs.index(player))
                 break
+        # Pair the remaining even number of players
         i = 0
         while i < len(idnamepairs):
             pair = idnamepairs[i] + idnamepairs[i+1]
             pairs.append(pair)
             i += 2
+        # Append the byed player to the end of the pairing list
         pairs.append(byed)
     return pairs
