@@ -63,11 +63,12 @@ def playerStandings():
     player tied for first place if there is currently a tie.
 
     Returns:
-      A list of tuples, each of which contains (id, name, wins, matches):
+      A list of tuples, each of which contains (id, name, wins, matches, has_bye):
         id: the player's unique id (assigned by the database)
         name: the player's full name (as registered)
         wins: the number of matches the player has won
         matches: the number of matches the player has played
+        has_bye: whether the player as been assigned a bye in this tournament
     """
     db = connect()
     c = db.cursor()
