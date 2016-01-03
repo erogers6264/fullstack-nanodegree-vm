@@ -11,7 +11,6 @@ def connect():
     return psycopg2.connect("dbname=tournament")
 
 
-
 def deleteMatches():
     """Remove all the match records from the database."""
     db = connect()
@@ -63,7 +62,8 @@ def playerStandings():
     player tied for first place if there is currently a tie.
 
     Returns:
-      A list of tuples, each of which contains (id, name, wins, matches, has_bye):
+      A list of tuples, each of which contains (id, name, wins,
+                                                matches, has_bye):
         id: the player's unique id (assigned by the database)
         name: the player's full name (as registered)
         wins: the number of matches the player has won
@@ -103,7 +103,7 @@ def reportMatch(winner, loser):
 
 def hasBye(player):
     """Determines if the player has a bye. Returns a boolean
-    indicating the result. 
+    indicating the result.
     Args:
         player: the id number of the player in question
     """
@@ -113,6 +113,7 @@ def hasBye(player):
     bye = c.fetchone()
     db.close()
     return bye[0]
+
 
 def assignBye(player):
     db = connect()
@@ -144,8 +145,7 @@ def swissPairings():
     # Organize the player ids and names into a list of tuples
     idnamepairs = [(row[0], row[1]) for row in standings]
     pairs = []
-    even = (len(idnamepairs) % 2) == 0 # Determine whether even
-    
+    even = (len(idnamepairs) % 2) == 0  # Determine whether even
 
     if even:
         i = 0
