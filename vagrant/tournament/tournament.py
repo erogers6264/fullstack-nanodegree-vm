@@ -161,7 +161,7 @@ def swissPairings():
                 # Grab the byed player then break to proceed to pairing
                 byed = idnamepairs.pop(idnamepairs.index(player))
                 break
-        # Pair the remaining even number of players
+        # Pair the remaining number of players (now even)
         i = 0
         while i < len(idnamepairs):
             pair = idnamepairs[i] + idnamepairs[i+1]
