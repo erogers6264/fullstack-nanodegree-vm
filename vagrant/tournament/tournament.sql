@@ -31,5 +31,5 @@ CREATE TABLE matches(
 
 -- Create a view of players ordered by wins
 CREATE VIEW standings AS
-	SELECT player_id, name, wins, (wins+losses) AS
+	SELECT player_id, name, wins, (wins+losses), has_bye AS
 	matches FROM players ORDER BY wins DESC;

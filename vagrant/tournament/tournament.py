@@ -10,13 +10,7 @@ def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
     return psycopg2.connect("dbname=tournament")
 
-def deleteTournaments():
-    """Remove all the tournament records from the database."""
-    db = connect()
-    c = db.cursor()
-    c.execute("DELETE FROM tournaments *")
-    db.commit()
-    db.close()
+
 
 def deleteMatches():
     """Remove all the match records from the database."""
@@ -84,12 +78,6 @@ def playerStandings():
     db.close()
     return standings
 
-def createTournament():
-    pass
-
-def tournamentInfo():
-    "Returns a list of the tournaments and the resulting winner."
-    pass
 
 def reportMatch(winner, loser):
     """Records the outcome of a single match between two players.
@@ -111,6 +99,7 @@ def reportMatch(winner, loser):
     db.commit()
     db.close()
 
+
 def hasBye(player):
     """Determines if the player has a bye. Returns a boolean
     indicating the result. 
@@ -123,6 +112,15 @@ def hasBye(player):
     bye = c.fetchone()
     db.close()
     return bye[0]
+
+def assignBye(player):
+    db = connect()
+    c = db.cursor()
+    c.execute("""UPDATE players
+                 SET has_bye=TRUE, wins=wins+1
+                 WHERE player_id=%s""", (player,))
+    db.commit()
+    db.close()
 
 
 def swissPairings():
@@ -143,30 +141,28 @@ def swissPairings():
     standings = playerStandings()
 
     # Organize the player ids and names into a list of tuples
-    # This is uses a cool technique call a list comprehension
     idnamepairs = [(row[0], row[1]) for row in standings]
-    even = (len(idnamepairs) % 2) == 0 # Determine if their are an even number of players
-    pairs = [] # Create a new list to hold the final pairs
+    pairs = []
+    even = (len(idnamepairs) % 2) == 0 # Determine whether even
+    
 
     if even:
-        i = 0 # Initiate a counter
-        while i < len(idnamepairs): # Loop should iterate over 
-            pair = idnamepairs[i] + idnamepairs[i+1] # make the tuple of tuples containing id and name
+        i = 0
+        while i < len(idnamepairs):
+            pair = idnamepairs[i] + idnamepairs[i+1]
             pairs.append(pair)
             i += 2
     else:
         for player in idnamepairs:
             if hasBye(player[0]) == False:
-                db = connect()
-                c = db.cursor()
-                c.execute("""UPDATE players
-                             SET has_bye=TRUE, wins=wins+1
-                             WHERE player_id=%s""", (player[0],))
-                db.commit()
-                db.close()
-                break    
-            else:
-                pass
-
-
+                assignBye(player[0])
+                # Grab the byed player
+                byed = idnamepairs.pop(idnamepairs.index(player))
+                break
+        i = 0
+        while i < len(idnamepairs):
+            pair = idnamepairs[i] + idnamepairs[i+1]
+            pairs.append(pair)
+            i += 2
+        pairs.append(byed)
     return pairs
